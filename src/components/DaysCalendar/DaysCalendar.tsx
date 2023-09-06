@@ -23,7 +23,6 @@ const DaysCalendar: React.FC<Props> = ({ calendar }) => {
     };
   }, []);
 
-  console.log(windowWidth);
   return (
     <>
       {calendar.days.map((item) =>
@@ -46,7 +45,7 @@ const DaysCalendar: React.FC<Props> = ({ calendar }) => {
                   <p> {item2 !== null && dayjs().date(item2).locale(ru).format('dddd')}</p>
                 </Box>
               ) : (
-                <p>{item2}</p>
+                item2
               )}
             </Paper>
           </Grid>

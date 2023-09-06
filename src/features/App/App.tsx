@@ -48,7 +48,7 @@ const App = () => {
         <Grid spacing={2} container columns={{ xs: 4, sm: 5, md: 5, lg: 7 }}>
           <CalendarWeek calendar={calendar} />
         </Grid>
-        <Grid spacing={2} container columns={{ xs: 3, sm: 4, md: 6, lg: 7 }}>
+        <Grid spacing={2} container columns={{ xs: 2, sm: 4, md: 6, lg: 7 }}>
           <DaysCalendar calendar={calendar} />
         </Grid>
       </Container>
