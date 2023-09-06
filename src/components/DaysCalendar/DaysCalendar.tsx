@@ -1,12 +1,29 @@
-import React from 'react';
-import { Grid, Paper } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Box, Grid, Paper } from '@mui/material';
 import { CalendarType } from '../../types';
+import dayjs from 'dayjs';
+import ru from 'dayjs/locale/ru';
 
 interface Props {
   calendar: CalendarType;
 }
 
 const DaysCalendar: React.FC<Props> = ({ calendar }) => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  console.log(windowWidth);
   return (
     <>
       {calendar.days.map((item) =>
@@ -23,7 +40,14 @@ const DaysCalendar: React.FC<Props> = ({ calendar }) => {
                 color: item2 === calendar.currentNumber ? '#fff' : '',
               }}
             >
-              {item2}
+              {windowWidth < 1200 ? (
+                <Box>
+                  <p>{item2}</p>
+                  <p> {item2 !== null && dayjs().date(item2).locale(ru).format('dddd')}</p>
+                </Box>
+              ) : (
+                <p>{item2}</p>
+              )}
             </Paper>
           </Grid>
         )),
