@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import dayjs from 'dayjs';
 import ru from 'dayjs/locale/ru';
-import { Box, Chip, Container, Grid, IconButton, Paper, Button } from '@mui/material';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Container, Grid, Paper } from '@mui/material';
 import '../App/App.css';
 import DaysCalendar from '../../components/DaysCalendar/DaysCalendar';
+import PanelCalendar from '../../components/PanelCalendar/PanelCalendar';
+import { useAppSelector } from '../../store/hooks';
+import { selectCount } from './NewSlice';
 
 const App = () => {
-  const [count, setCount] = useState(0);
+  const count = useAppSelector(selectCount);
   const currentDate = dayjs();
   const newDate = dayjs().add(count, 'month').startOf('month');
-
-  const days = [];
   let dayCounter = 1;
   const daysInMonth = newDate.daysInMonth();
   const firstDayOfMonth = newDate.day() - 1;
+
+  const days = [];
 
   for (let i = 0; i < 6; i++) {
     const week = [];
@@ -42,23 +43,7 @@ const App = () => {
   return (
     <div className="section_calendar">
       <Container>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <IconButton onClick={() => setCount((prev) => prev - 1)} aria-label="delete">
-            <ArrowBackIosIcon />
-          </IconButton>
-          <Box>
-            <Chip label={`${calendar.month}, ${calendar.year}`} variant="outlined" />
-          </Box>
-
-          <Box sx={{ marginLeft: 'auto' }}>
-            <Button disabled={count === 0} onClick={() => setCount(0)} variant="text">
-              Сегондя
-            </Button>
-          </Box>
-          <IconButton onClick={() => setCount((prev) => prev + 1)} aria-label="delete">
-            <ArrowForwardIosIcon />
-          </IconButton>
-        </Box>
+        <PanelCalendar calendar={calendar} />
         <Grid spacing={2} container columns={{ xs: 4, sm: 8, md: 7 }}>
           {calendar.weeks.map((item) => (
             <Grid key={item} xs={1} item>
