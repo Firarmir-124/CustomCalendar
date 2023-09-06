@@ -1,18 +1,18 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistStore } from 'redux-persist';
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist/es/constants';
-import { newSliceReducer } from '../NewSlice';
+import { AppSliceReducer } from '../features/App/NewSlice';
 import storage from 'redux-persist/lib/storage';
 import persistReducer from 'redux-persist/es/persistReducer';
 
-const testPersistConfig = {
-  key: 'loadingPage2:test',
+const appPersistConfig = {
+  key: 'calendar:app',
   storage,
-  whitelist: ['test'],
+  whitelist: ['app'],
 };
 
 const reducerStore = combineReducers({
-  test: persistReducer(testPersistConfig, newSliceReducer),
+  app: persistReducer(appPersistConfig, AppSliceReducer),
 });
 
 export const store = configureStore({
